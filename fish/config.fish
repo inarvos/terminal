@@ -64,17 +64,48 @@ if status is-interactive
                 # Basic
                 bind -M default q close_kitty
 
+
+
                 # Windows (split screen)
+
                 # Bind "ss" to split the Kitty window in normal mode
                 bind -M default ss split_kitty_window
-            end
 
+                # Bind "space top" to move to the window on the top of current one
+                bind -M default ' '\e\[A move_to_top_window
+                # Bind "space bottom" to move to the window on the bottom of current one
+                bind -M default ' '\e\[B move_to_bottom_window
+                # Bind "space left" to move to the previous window in normal mode
+                bind -M default ' '\e\[D move_to_left_window
+                # Bind "space right" to move to the next window in normal mode
+                bind -M default ' '\e\[C move_to_right_window
+
+
+
+                # Tabs
+
+                # Bind "te" and "to" to create a new tab
+                bind -M default te 'kitty @ launch --type=tab'
+                bind -M default to 'kitty @ launch --type=tab'
+                # Bind "tx" and "tc" to close the current tab
+                bind -M default tc 'kitty @ close-tab'
+                bind -M default tx 'kitty @ close-tab'
+
+                # Bindings for tab navigation
+                # tn and tab to move to the next tab
+                bind -M default tn move_to_next_tab
+                bind -M default \t move_to_next_tab
+                # tn and tab to move to the previous tab
+                bind -M default tp move_to_previous_tab
+
+            end
         end
 
 
         
         # Keymaps functions
         if test -n "$KITTY_WINDOW_ID"
+
             # Function to close Kitty items
             function close_kitty
                 kitty @ close-window
@@ -82,11 +113,36 @@ if status is-interactive
 
             # Function to split the Kitty window
             function split_kitty_window
-                kitty @ launch --type=window --location=hsplit
+                kitty @ launch --location=hsplit
             end
+            # Function to move to the left window
+            function move_to_left_window
+                kitty @ focus-window --match neighbor:left
+            end
+            # Function to move to the right window
+            function move_to_right_window
+                kitty @ focus-window --match neighbor:right
+            end
+            # Function to move to the top window
+            function move_to_top_window
+                kitty @ focus-window --match neighbor:top
+            end
+            # Function to move to the bottom window
+            function move_to_bottom_window
+                kitty @ focus-window --match neighbor:bottom
+            end
+
+            # Function to move to the next tab
+            function move_to_next_tab
+                osascript -e 'tell application "System Events" to keystroke "]" using {command down, shift down}'
+            end
+            # Function to move to the previous tab
+            function move_to_previous_tab
+                osascript -e 'tell application "System Events" to keystroke "[" using {command down, shift down}'
+            end
+
         else
             echo "Not running in Kitty terminal."
         end
-
     end
 end
