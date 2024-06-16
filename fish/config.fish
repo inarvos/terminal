@@ -1,5 +1,7 @@
 if status is-interactive
+
     # Commands to run in interactive sessions can go here
+
     if test (uname -s) = "Darwin"
         set -gx PATH /usr/local/opt/coreutils/libexec/gnubin $PATH
         set -gx PATH /usr/local/opt/gnu-sed/libexec/gnubin $PATH
@@ -46,41 +48,55 @@ if status is-interactive
 
     # other:
 
-        if status is-interactive
+        # Set the cursor shapes for the different vi modes.
+        set fish_cursor_default     block
+        set fish_cursor_insert      line       blink
+        set fish_cursor_replace_one underscore blink
+        set fish_cursor_visual      block
 
-            # Set the cursor shapes for the different vi modes.
-            set fish_cursor_default     block
-            set fish_cursor_insert      line       blink
-            set fish_cursor_replace_one underscore blink
-            set fish_cursor_visual      block
+        # Apply custom Fish vi key bindings
+        function fish_user_key_bindings
 
-            # Apply custom Fish vi key bindings
-            function fish_user_key_bindings
-                # Use default Fish vi key bindings
-                fish_vi_key_bindings
+            # Use default Fish vi key bindings
+            fish_vi_key_bindings
 
-                # "delault" = Normal Mode
+            # "delault" = Normal Mode
+
+            # Copy whole line to clipboard
+            bind -M default yy 'commandline | pbcopy'
+            # Copy selected text in visual mode to clipboard
+            bind -M visual -m default y 'commandline -s | pbcopy; commandline -f end-selection repaint-mode'
+            # Paste from the system clipboard using p
+            bind -M default p 'commandline -i (pbpaste); commandline -f repaint'
+
+
+
+            # Keymaps functions for Kitty only
+            if test -n "$KITTY_WINDOW_ID"
 
                 # Basic
-                bind -M default q close_kitty
 
-
+                # Close window / tab
+                bind -M default q 'kitty @ close-window'
+                # Close OS window
+                bind -M default ' 'qa "osascript -e 'tell application \"System Events\" to keystroke \"w\" using {command down, shift down}'"
+                # Terminate kitty processes (kill all)
+                bind -M default ' 'qq 'killall kitty'
 
                 # Windows (split screen)
 
-                # Bind "ss" to split the Kitty window in normal mode
-                bind -M default ss split_kitty_window
+                # Bind "ss" and "sv" to split the Kitty window in normal mode
+                bind -M default ss 'kitty @ launch --location=hsplit'
+                bind -M default sv 'kitty @ launch --location=vsplit'
 
                 # Bind "space top" to move to the window on the top of current one
-                bind -M default ' '\e\[A move_to_top_window
+                bind -M default ' '\e\[A 'kitty @ focus-window --match neighbor:top'
                 # Bind "space bottom" to move to the window on the bottom of current one
-                bind -M default ' '\e\[B move_to_bottom_window
+                bind -M default ' '\e\[B 'kitty @ focus-window --match neighbor:bottom'
                 # Bind "space left" to move to the previous window in normal mode
-                bind -M default ' '\e\[D move_to_left_window
+                bind -M default ' '\e\[D 'kitty @ focus-window --match neighbor:left'
                 # Bind "space right" to move to the next window in normal mode
-                bind -M default ' '\e\[C move_to_right_window
-
-
+                bind -M default ' '\e\[C 'kitty @ focus-window --match neighbor:right'
 
                 # Tabs
 
@@ -93,56 +109,28 @@ if status is-interactive
 
                 # Bindings for tab navigation
                 # tn and tab to move to the next tab
-                bind -M default tn move_to_next_tab
-                bind -M default \t move_to_next_tab
-                # tn and tab to move to the previous tab
-                bind -M default tp move_to_previous_tab
+                bind -M default tn "osascript -e 'tell application \"System Events\" to keystroke \"]\" using {command down, shift down}'"
+                bind -M default \t "osascript -e 'tell application \"System Events\" to keystroke \"]\" using {command down, shift down}'"
+                # tp and shift+tab to move to the previous tab
+                bind -M default tp "osascript -e 'tell application \"System Events\" to keystroke \"[\" using {command down, shift down}'"
+                #bind -M default \e[Z "osascript -e 'tell application \"System Events\" to keystroke \"[\" using {command down, shift down}'"
 
+            else
+                echo "Not running in Kitty terminal."
             end
         end
 
 
         
-        # Keymaps functions
-        if test -n "$KITTY_WINDOW_ID"
+        # ...Multi-system function example...
+        #function copy_current_commandline_to_clipboard
+        #    if test (uname) = "Darwin"
+        #        commandline | pbcopy
+        #    else
+        #        commandline | xclip -selection clipboard
+        #    end
+        #    commandline -f repaint
+        #end
 
-            # Function to close Kitty items
-            function close_kitty
-                kitty @ close-window
-            end
-
-            # Function to split the Kitty window
-            function split_kitty_window
-                kitty @ launch --location=hsplit
-            end
-            # Function to move to the left window
-            function move_to_left_window
-                kitty @ focus-window --match neighbor:left
-            end
-            # Function to move to the right window
-            function move_to_right_window
-                kitty @ focus-window --match neighbor:right
-            end
-            # Function to move to the top window
-            function move_to_top_window
-                kitty @ focus-window --match neighbor:top
-            end
-            # Function to move to the bottom window
-            function move_to_bottom_window
-                kitty @ focus-window --match neighbor:bottom
-            end
-
-            # Function to move to the next tab
-            function move_to_next_tab
-                osascript -e 'tell application "System Events" to keystroke "]" using {command down, shift down}'
-            end
-            # Function to move to the previous tab
-            function move_to_previous_tab
-                osascript -e 'tell application "System Events" to keystroke "[" using {command down, shift down}'
-            end
-
-        else
-            echo "Not running in Kitty terminal."
-        end
     end
 end
