@@ -1,9 +1,11 @@
-# terminal
+# my machine
 My current terminal configurations - Kitty + (Fish + Vi).
 
 Welcome to my terminal configuration repository! This setup is an optimized and personalized configuration for the [Kitty terminal](https://sw.kovidgoyal.net/kitty/) and [Fish shell](https://fishshell.com/) with Vi mode. This configuration is tailored for a comfortable and efficient workflow on a Mac.
 This repository contains my personal setup that you can use to find the right way of configuration, or gain new setup ideas.
-<img width="815" alt="Screenshot 2024-06-18 at 16 54 05" src="https://github.com/inarvos/terminal/assets/37037175/d1d36213-65c2-450f-bfec-75a969c3c91d">
+
+<img width="815" alt="Screenshot 2024-06-18 at 16 54 05" src="https://github.com/inarvos/terminal/assets/37037175/d2a106e8-8fb5-466b-a74a-2e7151c3f992">
+
 
 
 Overview
@@ -14,6 +16,7 @@ Kitty Terminal Configuration
 The Kitty terminal is known for its performance and configurability, making it an excellent choice for power users.
 I have reviewed all the available Kitty configurations and chosen those few that suit my needs at this stage. kitty.conf is mainly about Kitty’s design, while Kitty-related functional settings are in the Fish configuration, as they are closely related to the Vi mode.
 To view and customize Kitty design settings, you can refer to the `kitty.conf` file in the repository.
+
 <img width="1728" alt="Screenshot 2024-06-18 at 17 12 47" src="https://github.com/inarvos/terminal/assets/37037175/477546fb-09db-442a-80da-a2c4679e8d08">
 
 Fish Shell Configuration
@@ -26,7 +29,9 @@ Being a fan of Vim (my Neovim - https://github.com/inarvos/Neovim-Mac-Pro-M3), I
 
 Keybindings include basic text editing, windows management, tabs management and more.
 For details, please refer to the `config.fish` file in the repository.
-<img width="814" alt="Screenshot 2024-06-18 at 17 15 11" src="https://github.com/inarvos/terminal/assets/37037175/3ce86ad7-6210-4a54-a24a-421a6e30cd66">
+
+<img width="814" alt="Screenshot 2024-06-18 at 17 15 11" src="https://github.com/inarvos/terminal/assets/37037175/06cf9fbe-da5d-4d0f-aa9f-80ad9e4a8443">
+
 
 
 Installation
