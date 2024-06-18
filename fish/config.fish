@@ -69,6 +69,10 @@ if status is-interactive
             # Paste from the system clipboard using p
             bind -M default p 'commandline -i (pbpaste); commandline -f repaint'
 
+            # Move cursor to the beginning of the line
+            bind -M default _ beginning-of-line
+            bind -M visual _ beginning-of-line
+
 
 
             # Keymaps functions for Kitty only
@@ -78,8 +82,13 @@ if status is-interactive
 
                 # Close window / tab
                 bind -M default q 'kitty @ close-window'
+                # Open OS window
+                bind -M default wo 'kitty @ action new_os_window'
                 # Close OS window
+                #bind -M delault ' 'qa 'kitty @ action close_os_window'
                 bind -M default ' 'qa "osascript -e 'tell application \"System Events\" to keystroke \"w\" using {command down, shift down}'"
+                # Previous active OS window
+                bind -M default wp 'kitty @ action nth_os_window -1'
                 # Terminate kitty processes (kill all)
                 bind -M default ' 'qq 'killall kitty'
 
@@ -88,6 +97,10 @@ if status is-interactive
                 # Bind "ss" and "sv" to split the Kitty window in normal mode
                 bind -M default ss 'kitty @ launch --location=hsplit'
                 bind -M default sv 'kitty @ launch --location=vsplit'
+                # Switch between split screen layouts
+                bind -M default sn 'kitty @ action next_layout'
+                # Detach the current tab into a new OD window
+                bind -M default sd 'kitty @ detach-window'
 
                 # Bind "space top" to move to the window on the top of current one
                 bind -M default ' '\e\[A 'kitty @ focus-window --match neighbor:top'
@@ -97,7 +110,7 @@ if status is-interactive
                 bind -M default ' '\e\[D 'kitty @ focus-window --match neighbor:left'
                 # Bind "space right" to move to the next window in normal mode
                 bind -M default ' '\e\[C 'kitty @ focus-window --match neighbor:right'
-
+                
                 # Tabs
 
                 # Bind "te" and "to" to create a new tab
@@ -106,14 +119,15 @@ if status is-interactive
                 # Bind "tx" and "tc" to close the current tab
                 bind -M default tc 'kitty @ close-tab'
                 bind -M default tx 'kitty @ close-tab'
+                # Detach the current tab into a new OS window
+                bind -M default td 'kitty @ detach-tab'
 
                 # Bindings for tab navigation
                 # tn and tab to move to the next tab
-                bind -M default tn "osascript -e 'tell application \"System Events\" to keystroke \"]\" using {command down, shift down}'"
-                bind -M default \t "osascript -e 'tell application \"System Events\" to keystroke \"]\" using {command down, shift down}'"
+                bind -M default tn 'kitty @ action next_tab'
+                bind -M default \t 'kitty @ action next_tab'
                 # tp and shift+tab to move to the previous tab
-                bind -M default tp "osascript -e 'tell application \"System Events\" to keystroke \"[\" using {command down, shift down}'"
-                #bind -M default \e[Z "osascript -e 'tell application \"System Events\" to keystroke \"[\" using {command down, shift down}'"
+                bind -M default tp 'kitty @ action previous_tab'
 
             else
                 echo "Not running in Kitty terminal."
