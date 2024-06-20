@@ -129,6 +129,10 @@ if status is-interactive
                 # tp and shift+tab to move to the previous tab
                 bind -M default tp 'kitty @ action previous_tab'
 
+                # Scrolling
+                bind -M default gg 'kitty @ action scroll_home'
+                #bind -M default j 'kitty @ action scroll_line_down'
+                #bind -M default k 'kitty @ action scroll_line_up'
             else
                 echo "Not running in Kitty terminal."
             end
