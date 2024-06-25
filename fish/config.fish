@@ -5,6 +5,7 @@ if status is-interactive
     if test (uname -s) = "Darwin"
         set -gx PATH /usr/local/opt/coreutils/libexec/gnubin $PATH
         set -gx PATH /usr/local/opt/gnu-sed/libexec/gnubin $PATH
+        set -g fish_greeting 'Hello, friend'
 
     # .zprofile:
 
@@ -13,6 +14,11 @@ if status is-interactive
 
         # Java:
         set -x PATH /opt/homebrew/opt/openjdk/bin $PATH
+
+        # C#:
+        set -x PATH /usr/local/bin/omnisharp-osx-arm64-net6.0 $PATH
+        set -x DOTNET_ROOT /usr/local/share/dotnet
+        set -x PATH $DOTNET_ROOT $PATH
 
         # Pyenv setup for login shell:
         set -x PYENV_ROOT $HOME/.pyenv
@@ -43,6 +49,7 @@ if status is-interactive
 
         # fzf
         alias fzf="fzf --preview 'bat --color=always {}' --preview-window '~3'"        
+        #alias neovide='neovide --log'
 
 
 
@@ -133,8 +140,8 @@ if status is-interactive
                 bind -M default gg 'kitty @ action scroll_home'
                 #bind -M default j 'kitty @ action scroll_line_down'
                 #bind -M default k 'kitty @ action scroll_line_up'
-            else
-                echo "Not running in Kitty terminal."
+            #else
+            #    echo "Not running in Kitty terminal."
             end
         end
 
