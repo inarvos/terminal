@@ -7,13 +7,17 @@ if status is-interactive
         set -gx PATH /usr/local/opt/gnu-sed/libexec/gnubin $PATH
         set -g fish_greeting 'Hello, friend'
 
-    # .zprofile:
-
         set -x PATH /usr/local/bin $PATH
         set -x PATH /opt/homebrew/bin $PATH
 
         # Java:
-        set -x PATH /opt/homebrew/opt/openjdk/bin $PATH
+        #set -x PATH /usr/bin $PATH
+        #set -x PATH /opt/homebrew/opt/openjdk/bin $PATH
+        #set -x JAVA_HOME /usr/libexec/java_home
+        #set -x JAVA_HOME /opt/homebrew/Cellar/openjdk/22.0.1/libexec/openjdk.jdk/Contents/Home
+        #set -x PATH $JAVA_HOME/bin $PATH
+        set -x PATH $HOME/.jenv/bin $PATH
+        eval "$(jenv init -)"
 
         # C#:
         set -x PATH /usr/local/bin/omnisharp-osx-arm64-net6.0 $PATH
@@ -44,8 +48,6 @@ if status is-interactive
 
         # For fish theme
         set -x PATH /opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH        
-
-    # .zshrc:
 
         # fzf
         alias fzf="fzf --preview 'bat --color=always {}' --preview-window '~3'"        
