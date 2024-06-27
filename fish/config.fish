@@ -9,6 +9,25 @@ if status is-interactive
 
         set -x PATH /usr/local/bin $PATH
         set -x PATH /opt/homebrew/bin $PATH
+        #set -x PATH /usr/bin $PATH
+
+        # Pyenv setup for login shell:
+        set -x PYENV_ROOT $HOME/.pyenv
+        set -x PATH $PYENV_ROOT/bin $PATH
+        eval "$(pyenv init --path)"
+        
+        # C / C++:
+        set -x PATH /opt/homebrew/opt/llvm/bin $PATH
+
+        # C#:
+
+        # When donwloaded and installed manually:
+        #set -x PATH /usr/local/bin/omnisharp-osx-arm64-net6.0 $PATH
+        #set -x DOTNET_ROOT /usr/local/share/dotnet
+        #set -x PATH $DOTNET_ROOT $PATH
+
+        # When installed via Homebrew:
+        set -x PATH /opt/homebrew/opt/omnisharp-mono/bin/omnisharp $PATH
 
         # Java:
         #set -x PATH /usr/bin $PATH
@@ -18,16 +37,6 @@ if status is-interactive
         #set -x PATH $JAVA_HOME/bin $PATH
         set -x PATH $HOME/.jenv/bin $PATH
         eval "$(jenv init -)"
-
-        # C#:
-        set -x PATH /usr/local/bin/omnisharp-osx-arm64-net6.0 $PATH
-        set -x DOTNET_ROOT /usr/local/share/dotnet
-        set -x PATH $DOTNET_ROOT $PATH
-
-        # Pyenv setup for login shell:
-        set -x PYENV_ROOT $HOME/.pyenv
-        set -x PATH $PYENV_ROOT/bin $PATH
-        eval "$(pyenv init --path)"
 
         # Cargo setup:
         set -x PATH $HOME/.cargo/bin $PATH
