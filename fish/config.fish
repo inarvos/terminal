@@ -8,13 +8,21 @@ if status is-interactive
         set -g fish_greeting 'Hello, friend'
 
         set -x PATH /usr/local/bin $PATH
-        set -x PATH /opt/homebrew/bin $PATH
+        #set -x PATH /opt/homebrew/bin $PATH
         #set -x PATH /usr/bin $PATH
 
+        # Python:
         # Pyenv setup for login shell:
-        set -x PYENV_ROOT $HOME/.pyenv
-        set -x PATH $PYENV_ROOT/bin $PATH
-        eval "$(pyenv init --path)"
+        if command -v pyenv > /dev/null 2>&1
+            # Set PYENV_ROOT
+            set -x PYENV_ROOT $HOME/.pyenv
+            # Add pyenv to PATH
+            set -x PATH $PYENV_ROOT/bin $PATH
+            # Initialize pyenv
+            pyenv init --path | source
+            pyenv init - | source
+            pyenv virtualenv-init - | source
+        end
         
         # C / C++:
         set -x PATH /opt/homebrew/opt/llvm/bin $PATH
@@ -51,7 +59,6 @@ if status is-interactive
         set -x PATH $HOME/.gem/ruby/3.3.0 $PATH
 
         # LuaRocks paths
-        set -x PATH /opt/homebrew/bin $PATH
         set LUA_PATH "/opt/homebrew/share/lua/5.4/?.lua;/opt/homebrew/share/lua/5.4/?/init.lua;$LUA_PATH"
         set LUA_CPATH "/opt/homebrew/lib/lua/5.4/?.so;$LUA_CPATH"
 
