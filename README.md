@@ -1,51 +1,227 @@
-# my machine
-My current terminal configurations - Kitty + (Fish + Vi).
+# Terminal configuration
 
-Welcome to my terminal configuration repository! This setup is an optimized and personalized configuration for the [Kitty terminal](https://sw.kovidgoyal.net/kitty/) and [Fish shell](https://fishshell.com/) with Vi mode. This configuration is tailored for a comfortable and efficient workflow on a Mac.
-This repository contains my personal setup that you can use to find the right way of configuration, or gain new setup ideas.
+Personal macOS terminal setup using [Kitty](https://sw.kovidgoyal.net/kitty/) and [Fish](https://fishshell.com/) with Vi-mode keybindings.
 
-<img width="815" alt="Screenshot 2024-06-18 at 16 54 05" src="https://github.com/inarvos/terminal/assets/37037175/d2a106e8-8fb5-466b-a74a-2e7151c3f992">
- 
+The configuration is designed for a keyboard-first workflow with Kitty window control, Fish Vi editing, Homebrew-based tooling, and a compact visual style.
 
+## Overview
 
+This repository contains:
 
-Overview
+```text
+kitty/
+  kitty.conf
+  theme.conf
+  kitty-themes/
 
+fish/
+  config.fish
+  conf.d/
+```
 
-Kitty Terminal Configuration
+The setup is primarily intended for my own Mac environment, but it can also be used as a reference for configuring Kitty, Fish, Vi mode, and terminal-based development tools.
 
-The Kitty terminal is known for its performance and configurability, making it an excellent choice for power users.
-I have reviewed all the available Kitty configurations and chosen those few that suit my needs at this stage. kitty.conf is mainly about Kitty’s design, while Kitty-related functional settings are in the Fish configuration, as they are closely related to the Vi mode.
-To view and customize Kitty design settings, you can refer to the `kitty.conf` file in the repository.
+## Main features
 
-<img width="1728" alt="340754584-477546fb-09db-442a-80da-a2c4679e8d08" src="https://github.com/inarvos/terminal/assets/37037175/d92a12b2-6b8c-43df-9d18-c7e7f71b1d8d">
- 
+### Kitty
 
+- Custom theme and background styling
+- Custom Nerd Font setup
+- Cursor trail
+- Fish as the default shell
+- macOS-friendly quit behaviour
+- Split-window and scroll keybindings
+- Remote control enabled for Fish-driven Kitty commands
+- Safer paste handling
+- Long-command completion notifications
 
+### Fish
 
-Fish Shell Configuration
+- Vi mode
+- Custom greeting
+- Stable Homebrew environment setup
+- Clean PATH handling and de-duplication
+- `pyenv`, `rbenv`, and `jenv` support
+- `zoxide` for smarter directory navigation
+- `atuin` for improved command history
+- `direnv` for project-specific environments
+- Clipboard-friendly Vi-mode bindings
+- Kitty tab, window, split, and scroll controls
 
-Fish shell is known for its user-friendly and powerful features. My Fish configuration includes everything I need for a smooth workflow. This configuration relies on several tools and packages installed via Homebrew. The list of these dependencies can be found in the `BrewList.png` file
+## Requirements
 
-Vi Mode Keybindings
+Recommended tools:
 
-Being a fan of Vim (my Neovim - https://github.com/inarvos/Neovim-Mac-Pro-M3), I have meticulously set up Vi mode keybindings in the Fish shell configuration. These keybindings enhance navigation and editing efficiency directly in the terminal.
+```bash
+brew install fish
+brew install zoxide
+brew install atuin
+brew install direnv
+```
 
-Keybindings include basic text editing, windows management, tabs management and more.
-For details, please refer to the `config.fish` file in the repository.
+Optional tools used by the Fish configuration when available:
 
-<img width="814" alt="Screenshot 2024-06-18 at 17 15 11" src="https://github.com/inarvos/terminal/assets/37037175/06cf9fbe-da5d-4d0f-aa9f-80ad9e4a8443">
- 
+```bash
+brew install pyenv
+brew install rbenv
+brew install jenv
+brew install fzf
+brew install bat
+```
 
+Kitty can be installed or updated with Homebrew Cask:
 
+```bash
+brew install --cask kitty
+brew upgrade --cask kitty
+```
 
-Installation
+## Font
 
-To set up this configuration on your system, follow these steps:
--	Install dependencies – install what you find useful from the BrewList. Anyway, your system will tell you what is missing if you try using my configurations. But use Homebrew.
--	Apply Kitty - copy Kitty configuration files to your Kitty config directory (should be ~/.config/kitty/).
--	Apply Fish - copy Fish configuration files to your Fish config directory (should be ~/.config/fish/).
+The Kitty configuration expects:
 
--	Open Kitty terminal, and you should see the custom configurations applied. You can start using the Fish shell with Vi mode keybindings immediately. For any adjustments, modify the configuration files as per your requirements.
+```conf
+font_family inarvos Nerd Font Mono
+```
 
-<img width="1728" alt="340754794-7dcb4d80-c0c0-4c82-8312-ffeed6cdd5b7" src="https://github.com/inarvos/terminal/assets/37037175/be2db3fc-96b2-4389-8de0-47c581cec40e">
+The font must be installed and visible to Kitty as a fixed-width font.
+
+Check available Kitty fonts with:
+
+```bash
+kitten choose-fonts
+```
+
+If Kitty does not show the expected font, check macOS Font Book and confirm that the font is active and recognised as fixed width.
+
+## Installation
+
+Back up existing configuration files first:
+
+```bash
+cp -R ~/.config/fish ~/.config/fish.backup
+cp -R ~/.config/kitty ~/.config/kitty.backup
+```
+
+Copy the Fish configuration:
+
+```bash
+mkdir -p ~/.config/fish
+rsync -av fish/ ~/.config/fish/
+```
+
+Copy the Kitty configuration:
+
+```bash
+mkdir -p ~/.config/kitty
+rsync -av kitty/ ~/.config/kitty/
+```
+
+Restart Kitty after copying the files.
+
+## Validation
+
+Check Fish syntax:
+
+```bash
+fish -n ~/.config/fish/config.fish
+find ~/.config/fish -name "*.fish" -print -exec fish -n {} \;
+```
+
+Check tool availability:
+
+```bash
+command -v fish
+command -v kitty
+command -v zoxide
+command -v atuin
+command -v direnv
+```
+
+Check Kitty version:
+
+```bash
+kitty --version
+```
+
+View the active Kitty configuration with:
+
+```text
+Option + Command + ,
+```
+
+Reload Kitty configuration with:
+
+```text
+Control + Command + ,
+```
+
+## Fish workflow
+
+The Fish configuration uses Vi mode and custom normal-mode bindings.
+
+Examples:
+
+| Binding | Action |
+|---|---|
+| `yy` | Copy current command line |
+| `p` | Paste from macOS clipboard |
+| `_` | Move to beginning of line |
+| `ss` | Horizontal Kitty split |
+| `sv` | Vertical Kitty split |
+| `sn` | Next Kitty layout |
+| `te` / `to` | New Kitty tab |
+| `tc` / `tx` | Close Kitty tab |
+| `tn` / `Tab` | Next Kitty tab |
+| `tp` | Previous Kitty tab |
+| `gg` | Scroll to top |
+
+Kitty-specific bindings are only active inside Kitty.
+
+## Kitty shortcuts
+
+The Kitty configuration also defines native shortcuts:
+
+| Shortcut | Action |
+|---|---|
+| `Ctrl + Shift + E` | Horizontal split |
+| `Ctrl + Shift + D` | Vertical split |
+| `Ctrl + B` | Scroll page up |
+| `Ctrl + F` | Scroll page down |
+| `Ctrl + K` | Scroll line up |
+| `Ctrl + J` | Scroll line down |
+
+## zoxide
+
+`zoxide` is enabled automatically when installed.
+
+Example usage:
+
+```bash
+z terminal
+z project-name
+```
+
+## Atuin
+
+`atuin` is enabled automatically when installed.
+
+The configuration keeps normal up-arrow behaviour and uses Atuin for improved searchable command history.
+
+## direnv
+
+`direnv` is enabled automatically when installed.
+
+For each project that uses an `.envrc` file:
+
+```bash
+direnv allow
+```
+
+## Notes
+
+- The setup is macOS-focused.
+- Kitty starts Fish directly.
+- Fish does not need to be the global login shell.
+- Optional tools are loaded only when available.
+- Some paths and tools are specific to my local development environment.
