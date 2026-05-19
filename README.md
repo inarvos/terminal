@@ -5,7 +5,7 @@ Personal macOS terminal setup using [Kitty](https://sw.kovidgoyal.net/kitty/), [
 The setup is designed for a keyboard-first workflow with Kitty splits and tabs, Fish Vi editing, terminal file navigation, Homebrew-managed tools, and a compact visual style.
 
 <p align="center">
-  <img src="assets/screenshots/preview.png" width="100%" alt="Kitty terminal with Fish greeting">
+  <img src="assets/screenshots/1.png" width="100%" alt="Kitty terminal with Fish greeting">
 </p>
 
 ## Overview
@@ -22,6 +22,13 @@ fish/
   config.fish
   conf.d/
   Homebrew list.png
+
+assets/
+  screenshots/
+    1.png
+    2.png
+    3.png
+    4.png
 ```
 
 The setup is focused on my own macOS environment, but it can also be used as a reference for configuring Kitty, Fish, Vi mode, terminal navigation, and development tooling.
@@ -58,7 +65,7 @@ The setup is focused on my own macOS environment, but it can also be used as a r
 The setup is built around Kitty, Fish, and Homebrew-managed tools on macOS.
 
 <p align="center">
-  <img src="assets/screenshots/versions.png" width="100%" alt="Kitty and Fish versions in split panes">
+  <img src="assets/screenshots/2.png" width="100%" alt="Kitty and Fish versions in split panes">
 </p>
 
 Recommended tools:
@@ -78,6 +85,7 @@ brew install rbenv
 brew install jenv
 brew install fzf
 brew install bat
+brew install ranger
 ```
 
 A Homebrew package snapshot is included as a reference:
@@ -114,7 +122,7 @@ If the font is not available, install the font locally or choose another monospa
 The configuration is built for terminal-based work with split panes, tabs, Fish Vi mode, ranger, Neovim, and project navigation.
 
 <p align="center">
-  <img src="assets/screenshots/workflow.png" width="100%" alt="Kitty split panes with ranger, Neovim and shell workflow">
+  <img src="assets/screenshots/3.png" width="100%" alt="Kitty split panes with ranger, Neovim and shell workflow">
 </p>
 
 ## Installation
@@ -260,7 +268,7 @@ zh
 Example of the setup with ranger file navigation and Vim/Neovim opened inside Kitty splits.
 
 <p align="center">
-  <img src="assets/screenshots/ranger-vim.png" width="100%" alt="Ranger file manager and Vim in Kitty split layout">
+  <img src="assets/screenshots/4.png" width="100%" alt="Ranger file manager and Vim in Kitty split layout">
 </p>
 
 ## Notes
