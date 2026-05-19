@@ -1,12 +1,16 @@
 # Terminal configuration
 
-Personal macOS terminal setup using [Kitty](https://sw.kovidgoyal.net/kitty/) and [Fish](https://fishshell.com/) with Vi-mode keybindings.
+Personal macOS terminal setup using [Kitty](https://sw.kovidgoyal.net/kitty/), [Fish](https://fishshell.com/), and Vi-mode keybindings.
 
-The configuration is designed for a keyboard-first workflow with Kitty window control, Fish Vi editing, Homebrew-based tooling, and a compact visual style.
+The setup is designed for a keyboard-first workflow with Kitty splits and tabs, Fish Vi editing, terminal file navigation, Homebrew-managed tools, and a compact visual style.
+
+<p align="center">
+  <img src="assets/screenshots/preview.png" width="100%" alt="Kitty terminal with Fish greeting">
+</p>
 
 ## Overview
 
-This repository contains:
+This repository contains my terminal configuration files:
 
 ```text
 kitty/
@@ -17,11 +21,12 @@ kitty/
 fish/
   config.fish
   conf.d/
+  Homebrew list.png
 ```
 
-The setup is primarily intended for my own Mac environment, but it can also be used as a reference for configuring Kitty, Fish, Vi mode, and terminal-based development tools.
+The setup is focused on my own macOS environment, but it can also be used as a reference for configuring Kitty, Fish, Vi mode, terminal navigation, and development tooling.
 
-## Main features
+## Features
 
 ### Kitty
 
@@ -31,7 +36,7 @@ The setup is primarily intended for my own Mac environment, but it can also be u
 - Fish as the default shell
 - macOS-friendly quit behaviour
 - Split-window and scroll keybindings
-- Remote control enabled for Fish-driven Kitty commands
+- Remote control for Fish-driven Kitty commands
 - Safer paste handling
 - Long-command completion notifications
 
@@ -39,7 +44,7 @@ The setup is primarily intended for my own Mac environment, but it can also be u
 
 - Vi mode
 - Custom greeting
-- Stable Homebrew environment setup
+- Homebrew environment setup
 - Clean PATH handling and de-duplication
 - `pyenv`, `rbenv`, and `jenv` support
 - `zoxide` for smarter directory navigation
@@ -48,7 +53,13 @@ The setup is primarily intended for my own Mac environment, but it can also be u
 - Clipboard-friendly Vi-mode bindings
 - Kitty tab, window, split, and scroll controls
 
-## Requirements
+## Environment
+
+The setup is built around Kitty, Fish, and Homebrew-managed tools on macOS.
+
+<p align="center">
+  <img src="assets/screenshots/versions.png" width="100%" alt="Kitty and Fish versions in split panes">
+</p>
 
 Recommended tools:
 
@@ -69,6 +80,10 @@ brew install fzf
 brew install bat
 ```
 
+A Homebrew package snapshot is included as a reference:
+
+[View Homebrew package list](fish/Homebrew%20list.png)
+
 Kitty can be installed or updated with Homebrew Cask:
 
 ```bash
@@ -78,13 +93,13 @@ brew upgrade --cask kitty
 
 ## Font
 
-The Kitty configuration expects:
+The Kitty configuration expects this font:
 
 ```conf
 font_family inarvos Nerd Font Mono
 ```
 
-The font must be installed and visible to Kitty as a fixed-width font.
+The font must be installed locally and visible to Kitty as a fixed-width font.
 
 Check available Kitty fonts with:
 
@@ -92,7 +107,15 @@ Check available Kitty fonts with:
 kitten choose-fonts
 ```
 
-If Kitty does not show the expected font, check macOS Font Book and confirm that the font is active and recognised as fixed width.
+If the font is not available, install the font locally or choose another monospace font in `kitty/kitty.conf`.
+
+## Workflow preview
+
+The configuration is built for terminal-based work with split panes, tabs, Fish Vi mode, ranger, Neovim, and project navigation.
+
+<p align="center">
+  <img src="assets/screenshots/workflow.png" width="100%" alt="Kitty split panes with ranger, Neovim and shell workflow">
+</p>
 
 ## Installation
 
@@ -160,8 +183,6 @@ Control + Command + ,
 
 The Fish configuration uses Vi mode and custom normal-mode bindings.
 
-Examples:
-
 | Binding | Action |
 |---|---|
 | `yy` | Copy current command line |
@@ -191,7 +212,9 @@ The Kitty configuration also defines native shortcuts:
 | `Ctrl + K` | Scroll line up |
 | `Ctrl + J` | Scroll line down |
 
-## zoxide
+## Tools
+
+### zoxide
 
 `zoxide` is enabled automatically when installed.
 
@@ -202,13 +225,13 @@ z terminal
 z project-name
 ```
 
-## Atuin
+### Atuin
 
 `atuin` is enabled automatically when installed.
 
 The configuration keeps normal up-arrow behaviour and uses Atuin for improved searchable command history.
 
-## direnv
+### direnv
 
 `direnv` is enabled automatically when installed.
 
@@ -218,6 +241,28 @@ For each project that uses an `.envrc` file:
 direnv allow
 ```
 
+### ranger
+
+`ranger` can be used for terminal file navigation.
+
+```bash
+ranger
+```
+
+Toggle hidden files in ranger with:
+
+```text
+zh
+```
+
+## Example layout
+
+Example of the setup with ranger file navigation and Vim/Neovim opened inside Kitty splits.
+
+<p align="center">
+  <img src="assets/screenshots/ranger-vim.png" width="100%" alt="Ranger file manager and Vim in Kitty split layout">
+</p>
+
 ## Notes
 
 - The setup is macOS-focused.
@@ -225,3 +270,4 @@ direnv allow
 - Fish does not need to be the global login shell.
 - Optional tools are loaded only when available.
 - Some paths and tools are specific to my local development environment.
+- The custom font should be installed locally before using the Kitty config.
